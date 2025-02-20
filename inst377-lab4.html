@@ -34,15 +34,6 @@
 
     <!-- Javascript code -->
     <script type="text/javascript">
-      // this function will be used to keep the background color the same even after reload
-      window.onload = function () {
-        const savedColor = sessionStorage.getItem("backgroundColor");
-        if (savedColor) {
-          document.body.style.backgroundColor = savedColor;
-        } else {
-          document.body.style.backgroundColor = "rgb(135, 206, 235)";
-        }
-      };
       function changeColor() {
         const currentColor = window.getComputedStyle(
           document.body
@@ -54,10 +45,8 @@
 
         if (currentColor == "rgb(135, 206, 235)") {
           document.body.style.backgroundColor = "lightseagreen";
-          sessionStorage.setItem("backgroundColor", "lightseagreen"); //saves background color to session storage so that it stays that way
         } else {
           document.body.style.backgroundColor = "rgb(135, 206, 235)";
-          sessionStorage.setItem("backgroundColor", "rgb(135, 206, 235)"); //saves background color to session storage so that it stays that way
         }
 
         console.log(
@@ -71,11 +60,10 @@
         if (name) {
           alert("Hi " + name + "!");
         }
-        return false;
       }
       function ValidateText() {
         const validateName = document.getElementById("TextTester").value;
-        console.log("Valudating user input: ", validateName);
+        console.log("Validating user input: ", validateName);
         const validationRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         if (validateName.trim() == "") {
           //remove any whitespace and check if empty

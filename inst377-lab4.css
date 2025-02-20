@@ -1,3 +1,6 @@
+body {
+    background-color: rgb(135, 206, 235);
+}
 
 .container {
     display: grid;
