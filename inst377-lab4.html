@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <title>INST377 - Lab 4</title>
+    <link rel="stylesheet" href="INST377-lab4.css" />
+  </head>
+  <body>
+    <h1 id="title">INST377 - Lab 4</h1>
+    <div class="container">
+      <!-- box one - alert me -->
+      <div class="box">
+        <form name="alertMeForm" onsubmit="return alertMe()">
+          <label for="firstName">Name:</label>
+          <input type="text" id="firstName" required />
+          <input type="submit" value="Alert Me!" />
+        </form>
+      </div>
+      <!-- box two - change color -->
+      <div class="box">
+        <button onclick="changeColor()">Change Color</button>
+      </div>
+      <!-- box 3 - text tester -->
+      <div class="box">
+        <form name="validateText" onsubmit="return ValidateText()">
+          <label for="TextTester">Text Tester:</label>
+          <input type="text" id="TextTester" required />
+          <input type="submit" value="Validate Text" />
+        </form>
+      </div>
+      <!-- box 4 - add text -->
+      <div class="box">
+        <button onclick="addText()">Add Text</button>
+      </div>
+    </div>
+
+    <!-- Javascript code -->
+    <script type="text/javascript">
+      // this function will be used to keep the background color the same even after reload
+      window.onload = function () {
+        const savedColor = sessionStorage.getItem("backgroundColor");
+        if (savedColor) {
+          document.body.style.backgroundColor = savedColor;
+        } else {
+          document.body.style.backgroundColor = "rgb(135, 206, 235)";
+        }
+      };
+      function changeColor() {
+        const currentColor = window.getComputedStyle(
+          document.body
+        ).backgroundColor;
+        console.log(
+          "Attemping to change background color, current color is: ",
+          currentColor
+        );
+
+        if (currentColor == "rgb(135, 206, 235)") {
+          document.body.style.backgroundColor = "lightseagreen";
+          sessionStorage.setItem("backgroundColor", "lightseagreen"); //saves background color to session storage so that it stays that way
+        } else {
+          document.body.style.backgroundColor = "rgb(135, 206, 235)";
+          sessionStorage.setItem("backgroundColor", "rgb(135, 206, 235)"); //saves background color to session storage so that it stays that way
+        }
+
+        console.log(
+          "Successfully changed background color, new color is: ",
+          document.body.style.backgroundColor
+        );
+      }
+      function alertMe() {
+        const name = document.getElementById("firstName").value;
+        console.log("Attempting to create an alert, name is: ", name);
+        if (name) {
+          alert("Hi " + name + "!");
+        }
+        return false;
+      }
+      function ValidateText() {
+        const validateName = document.getElementById("TextTester").value;
+        console.log("Valudating user input: ", validateName);
+        const validationRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        if (validateName.trim() == "") {
+          //remove any whitespace and check if empty
+          alert("Enter a valid first name");
+          return false;
+        }
+        if (validationRegex.test(validateName)) {
+          //makes sure it is a valid name
+          alert("How about...nah"); //alert if special character
+          return false;
+        }
+      }
+      function addText() {
+        const title = document.getElementById("title");
+        if (!title.innerText.includes("- Adding Text")) {
+          title.innerText += " - Adding Text";
+        }
+      }
+    </script>
+  </body>
+</html>
